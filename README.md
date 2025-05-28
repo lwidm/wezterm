@@ -9,7 +9,7 @@ For a WezTerm refernce guide refer to the [wezterm website](https://wezterm.org/
    ```PowerShell
    winget install wez.wezterm
    ```
-- Download [.wezterm.lua](./.wezterm.lua) and copy it to your home directory
+- Download [.wezterm.lua](./.wezterm.lua?raw=true) and copy it to your home directory
 
 ## Configuration description
 - Theme: Catppuccin Mocha
