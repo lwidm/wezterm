@@ -3,8 +3,8 @@ local wezterm = require("wezterm")
 -- Initialize config
 -- local config = wezterm.config_builder()
 local config = {}
--- config.term = "xterm-256color"
-config.term = 'wezterm'
+config.term = "xterm-256color"
+-- config.term = 'wezterm'
 
 -- Catppuccin Theme (Auto Dark/Light)
 local function scheme_for_appearance(appearance)
