@@ -9,7 +9,8 @@ For a WezTerm refernce guide refer to the [wezterm website](https://wezterm.org/
    ```PowerShell
    winget install wez.wezterm
    ```
-- Download [.wezterm.lua](./.wezterm.lua?raw=true) and copy it to your home directory
+- Download [.wezterm.lua](./.wezterm.lua?raw=true) and copy it to your home directory.
+   **Warning**: The filename has to match exactly including the `.`at the beginning. Firefox tends to remove this dot when downloading so ensure that the filename is unchanged.
 
 ## Configuration description
 - Theme: Catppuccin Mocha
