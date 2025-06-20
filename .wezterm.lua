@@ -27,12 +27,12 @@ config.default_prog = { "pwsh.exe" } -- 'pwsh' is the PowerShell 7 executable
 -- Tmux-like Keybindings
 local act = wezterm.action
 
-config.leader = { key = " ", mods = "SHIFT", timeout_milliseconds = 1000 }
+config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
 
 config.keys = {
 	-- Send Ctrl-Space through by pressing it twice
-	-- { key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
-	{ key = " ", mods = "SHIFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
+	{ key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
+	-- { key = " ", mods = "SHIFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
 
 	-- Split panes (tmux style)
 	{ key = "%", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
