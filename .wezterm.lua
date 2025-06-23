@@ -24,6 +24,19 @@ config.font = wezterm.font("Hack Nerd Font", { weight = "Regular" })
 -- PowerShell 7 as Default
 config.default_prog = { "pwsh.exe" } -- 'pwsh' is the PowerShell 7 executable
 
+-- Add Anaconda PowerShell Prompt to launcher menu
+config.launch_menu = {
+  {
+    label = 'Anaconda PowerShell Prompt',
+    args = {
+      'powershell.exe',
+      '-ExecutionPolicy', 'ByPass',
+      '-NoExit',
+      '-Command', '& "C:\\Users\\lukas\\miniconda3\\shell\\condabin\\conda-hook.ps1"; conda activate "C:\\Users\\lukas\\miniconda3"'
+    }
+  }
+}
+
 -- Tmux-like Keybindings
 local act = wezterm.action
 
@@ -32,7 +45,7 @@ config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- Send Ctrl-Space through by pressing it twice
 	{ key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
-	-- { key = " ", mods = "SHIFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
+	-- { key = " ", mods = "SHIFFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
 
 	-- Split panes (tmux style)
 	{ key = "%", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
