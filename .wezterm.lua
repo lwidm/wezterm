@@ -29,12 +29,14 @@ config.launch_menu = {
   {
     label = 'Anaconda PowerShell Prompt',
     args = {
-      'powershell.exe',
+      'pwsh.exe',
       '-ExecutionPolicy', 'ByPass',
       '-NoExit',
       '-Command', '& "C:\\Users\\lukas\\miniconda3\\shell\\condabin\\conda-hook.ps1"; conda activate "C:\\Users\\lukas\\miniconda3"'
     }
-  }
+  },
+  -- WSL
+  { label = 'Debian', args = { 'wsl.exe -d Debian' } },
 }
 
 -- Tmux-like Keybindings
@@ -45,7 +47,7 @@ config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- Send Ctrl-Space through by pressing it twice
 	{ key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
-	-- { key = " ", mods = "SHIFFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
+	-- { key = " ", mods = "SHIFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
 
 	-- Split panes (tmux style)
 	{ key = "%", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
