@@ -46,7 +46,7 @@ config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
 
 config.keys = {
 	-- Send Ctrl-Space through by pressing it twice
-	{ key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
+	-- { key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
 	-- { key = " ", mods = "SHIFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
 
 	-- Split panes (tmux style)
@@ -90,3 +90,4 @@ config.key_tables = {
 }
 
 return config
+
