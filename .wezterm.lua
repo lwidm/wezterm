@@ -1,10 +1,6 @@
 local wezterm = require("wezterm")
-
--- Initialize config
--- local config = wezterm.config_builder()
 local config = {}
 config.term = "xterm-256color"
--- config.term = 'wezterm'
 
 -- Catppuccin Theme (Auto Dark/Light)
 local function scheme_for_appearance(appearance)
@@ -22,49 +18,47 @@ config.text_background_opacity = 1.0
 config.font = wezterm.font("Hack Nerd Font", { weight = "Regular" })
 
 -- PowerShell 7 as Default
-config.default_prog = { "pwsh.exe" } -- 'pwsh' is the PowerShell 7 executable
+config.default_prog = { "pwsh.exe" }
 
--- Add Anaconda PowerShell Prompt to launcher menu
+-- Launch Menu
+local vs_root = "C:\\Program Files\\Microsoft Visual Studio\\2022"
+-- Adjust the edition below if needed (Community / Professional / Enterprise)
+local vs_edition = "Community"
+local vs_tools = vs_root .. "\\" .. vs_edition .. "\\VC\\Auxiliary\\Build"
+
 config.launch_menu = {
-  {
-    label = 'Anaconda PowerShell Prompt',
-    args = {
-      'pwsh.exe',
-      '-ExecutionPolicy', 'ByPass',
-      '-NoExit',
-      '-Command', '& "C:\\Users\\lukas\\miniconda3\\shell\\condabin\\conda-hook.ps1"; conda activate "C:\\Users\\lukas\\miniconda3"'
-    }
-  },
-  -- WSL
-  { label = 'Debian', args = { 'wsl.exe -d Debian' } },
+	{ label = "WSL2", args = { "wsl.exe" } },
+	{
+		label = "VS 2022 - Developer PowerShell",
+		args = {
+			"pwsh.exe", "-NoExit",
+			"-Command",
+			"& { Import-Module \"" .. vs_root .. "\\" .. vs_edition .. "\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"; Enter-VsDevShell -VsInstallPath \"" .. vs_root .. "\\" .. vs_edition .. "\" -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64' }",
+		},
+	},
+	{
+		label = "VS 2022 - Developer Command Prompt",
+		args = { "cmd.exe", "/k", vs_tools .. "\\VsDevCmd.bat" },
+	},
+	{
+		label = "VS 2022 - x64 Native Tools",
+		args = { "cmd.exe", "/k", vs_tools .. "\\vcvars64.bat" },
+	},
 }
 
 -- Tmux-like Keybindings
 local act = wezterm.action
-
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
-
 config.keys = {
-	-- Send Ctrl-Space through by pressing it twice
-	-- { key = " ", mods = "CTRL", action = act.SendKey { key = " ", mods = "CTRL" } },
-	-- { key = " ", mods = "SHIFT", action = act.SendKey({ key = " ", mods = "SHIFT" }) },
-
-	-- Split panes (tmux style)
 	{ key = "%", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = '"', mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-
-	-- Pane navigation
 	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
 	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
 	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-
-	-- Tab management
 	{ key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
 	{ key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
 	{ key = "p", mods = "LEADER", action = act.ActivateTabRelative(-1) },
-
-	-- Jump to specific pane by index (e.g., Ctrl-Space + 1 for first pane)
 	{ key = "1", mods = "LEADER", action = act.ActivateTab(0) },
 	{ key = "2", mods = "LEADER", action = act.ActivateTab(1) },
 	{ key = "3", mods = "LEADER", action = act.ActivateTab(2) },
@@ -75,19 +69,13 @@ config.keys = {
 	{ key = "8", mods = "LEADER", action = act.ActivateTab(7) },
 	{ key = "9", mods = "LEADER", action = act.ActivateTab(8) },
 	{ key = "0", mods = "LEADER", action = act.ActivateTab(9) },
-
-	-- Close pane
 	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
-
-	-- Copy mode
 	{ key = "[", mods = "LEADER", action = act.ActivateCopyMode },
 }
 config.key_tables = {
 	copy_mode = {
-		{ key = "y", action = act.CopyTo("ClipboardAndPrimarySelection") }, -- Yank selection
-		{ key = "Escape", action = act.CopyMode("Close") }, -- Exit copy mode
+		{ key = "y", action = act.CopyTo("ClipboardAndPrimarySelection") },
+		{ key = "Escape", action = act.CopyMode("Close") },
 	},
 }
-
 return config
-
