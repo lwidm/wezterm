@@ -25,6 +25,7 @@ local vs_root = "C:\\Program Files\\Microsoft Visual Studio\\2022"
 -- Adjust the edition below if needed (Community / Professional / Enterprise)
 local vs_edition = "Community"
 local vs_tools = vs_root .. "\\" .. vs_edition .. "\\VC\\Auxiliary\\Build"
+local vs_common = vs_root .. "\\" .. vs_edition .. "\\Common7\\Tools"
 
 config.launch_menu = {
 	{ label = "WSL2", args = { "wsl.exe" } },
@@ -38,7 +39,7 @@ config.launch_menu = {
 	},
 	{
 		label = "VS 2022 - Developer Command Prompt",
-		args = { "cmd.exe", "/k", vs_tools .. "\\VsDevCmd.bat" },
+		args = { "cmd.exe", "/k", vs_common .. "\\VsDevCmd.bat" },
 	},
 	{
 		label = "VS 2022 - x64 Native Tools",
