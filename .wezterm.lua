@@ -27,8 +27,18 @@ local vs_edition = "Community"
 local vs_tools = vs_root .. "\\" .. vs_edition .. "\\VC\\Auxiliary\\Build"
 local vs_common = vs_root .. "\\" .. vs_edition .. "\\Common7\\Tools"
 
+local miniconda_root = "C:\\Users\\lukas\\miniconda3"
+
 config.launch_menu = {
 	{ label = "WSL2", args = { "wsl.exe" } },
+	{
+		label = "Miniconda PowerShell",
+		args = {
+			"pwsh.exe", "-NoExit",
+			"-Command",
+			"& '" .. miniconda_root .. "\\shell\\condabin\\conda-hook.ps1' ; conda activate '" .. miniconda_root .. "'",
+		},
+	},
 	{
 		label = "VS 2022 - Developer PowerShell",
 		args = {
